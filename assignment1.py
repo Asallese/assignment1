@@ -3,7 +3,7 @@
 '''
 OPS435 Assignment 1 - Summer 2023
 Program: assignment1.py 
-Author: "Student Name"
+Author: "Asallese2"
 The python code in this file (a1_[Student_id].py) is original work written by
 "Student Name". No code in this file is copied from any other source
 except those provided by the course instructor, including any person,
@@ -26,12 +26,21 @@ def day_of_week(year: int, month: int, date: int) -> str:
 
 
 def mon_max(month:int, year:int) -> int:
+    if month in [1, 3, 5, 7, 8, 10, 12]:
+        return 31
+    elif month in [4, 6, 9, 11]:
+        return 30
+    elif month == 2:
+        return 29 if leap_year(year) else 28
+    else:
+        raise ValueError('Invalid Month')
     "returns the maximum day for a given month. Includes leap year check"
     ...
 
 def after(date: str) -> str:
     '''
     after() -> date for next day in YYYY-MM-DD string format
+# after() is used to schedule a function call after a given delay.
 
     Return the date for the next day of the given date in YYYY-MM-DD format.
     This function takes care of the number of days in February for leap year.
@@ -67,6 +76,13 @@ def usage():
 
 
 def leap_year(year: int) -> bool:
+    if year % 4 == 0:
+        if year % 100 == 0:
+            if year % 400 == 0:
+                return True
+            return False
+        return True
+    return False
     "return True if the year is a leap year"
     ...
 

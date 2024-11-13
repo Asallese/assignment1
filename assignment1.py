@@ -36,7 +36,6 @@ def mon_max(month:int, year:int) -> int:
         raise ValueError('Invalid Month')
     "returns the maximum day for a given month. Includes leap year check"
     ...
-
 def after(date: str) -> str:
     '''
     after() -> date for next day in YYYY-MM-DD string format
@@ -87,10 +86,41 @@ def leap_year(year: int) -> bool:
     ...
 
 def valid_date(date: str) -> bool:
-    "check validity of date and return True if valid"
+    parts = date.split('-')
+    if len(parts) != 3:
+        return False 
+
+    try:
+        year, month, day = map(int, parts)
+
+        if month < 1 or month > 12:
+            return False
+
+        if day < 1 or day > mon_max(month, year):
+            return False
+
+        return True
+
+    except ValueError:
+        return False
+
+
+
+    #"check validity of date and return True if valid"
     ...
 
 def day_count(start_date: str, stop_date: str) -> int:
+    count = 0
+    current_date = start_date
+
+    while current_date <= stop_date:
+        year, month, day = map(int, current_date.split('-'))
+        day_name = day_of_week(year, month, day)
+        if day_name in ['sat', 'sun']:
+            count += 1
+        current_date = after(current_date)
+
+        return count
     "Loops through range of dates, and returns number of weekend days"
     ...
 

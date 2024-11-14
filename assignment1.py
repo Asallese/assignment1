@@ -86,27 +86,25 @@ def leap_year(year: int) -> bool:
     ...
 
 def valid_date(date: str) -> bool:
-    parts = date.split('-')
-    if len(parts) != 3:
-        return False 
-
-    try:
-        year, month, day = map(int, parts)
-
-        if month < 1 or month > 12:
-            return False
-
-        if day < 1 or day > mon_max(month, year):
-            return False
-
-        return True
-
-    except ValueError:
-        return False
-
-
 
     #"check validity of date and return True if valid"
+    try:
+        year, month, day = [int(x) for x in date.split('-')]
+    except ValueError:
+        print('Error, Invalid Date')
+        return False
+
+    if year < 1500:
+        return False
+    else:
+        if month < 1 or month > 12:
+            return False
+        else:
+            if day < 1 or day > mon_max(month, year):
+                return False
+            else:
+                return True
+
     ...
 
 def day_count(start_date: str, stop_date: str) -> int:

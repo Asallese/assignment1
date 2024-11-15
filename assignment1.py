@@ -34,6 +34,7 @@ def mon_max(month:int, year:int) -> int:
         return 29 if leap_year(year) else 28
     else:
         raise ValueError('Invalid Month')
+# With this definition, the first if in the loop only have 31 days, second statement has months with 30days, and the final is february and will return if defined leap_year is else then 28. For error handling i used ValueError if month is not between 1 to 12.
     "returns the maximum day for a given month. Includes leap year check"
     ...
 def after(date: str) -> str:
@@ -82,7 +83,8 @@ def leap_year(year: int) -> bool:
             return False
         return True
     return False
-    "return True if the year is a leap year"
+# in the above function, i made my definiton work by the following. If said year is divisible by 4, 100 , and 400 it is a leap year. If it is divisible by 4 and 100 but not by 400, it is not a leap year.If it is divisible by 4 but not by 100 it is a leap year. Finally if it is not divisible by 4 it is not a leap year.
+"return True if the year is a leap year"
     ...
 
 def valid_date(date: str) -> bool:
@@ -104,21 +106,34 @@ def valid_date(date: str) -> bool:
                 return False
             else:
                 return True
+# in this definition, i used the list comprehension to take each element in the list from date and split it using -. I was able to make use of the try and except to implent the use of value error based on whether the date is valid or not.
+
+# First i am checking that the year is over the year of 1500, as the after() hasthat requirement, returning false if not.
+
+# It then checks the month if is greater than 1 and less than 12.
+
+# I then made an else   statement to confirm whether the day is greater than one and less then the mon_max which is defined above and will parse the data and confirm whether or not the month and the year are within the max. If so, it will return as true.
 
     ...
 
 def day_count(start_date: str, stop_date: str) -> int:
-    count = 0
-    current_date = start_date
+    weekends = 0
+    daycount_date = start_date
 
-    while current_date <= stop_date:
-        year, month, day = map(int, current_date.split('-'))
-        day_name = day_of_week(year, month, day)
-        if day_name in ['sat', 'sun']:
-            count += 1
-        current_date = after(current_date)
+    while daycount_date <= stop_date:
+        str_year, str_month, str_day = daycount_date.split('-')
+        year = int(str_year)
+        month = int(str_month)
+        day = int(str_day)
 
-        return count
+        name_day = day_of_week(year, month, day)
+
+        if name_day == 'sat' or name_day == 'sun':
+            weekends += 1
+
+        daycount_date = after(daycount_date)
+
+    return weekends
     "Loops through range of dates, and returns number of weekend days"
     ...
 

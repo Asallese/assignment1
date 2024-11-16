@@ -69,8 +69,9 @@ def after(date: str) -> str:
 
     return next_date
 
-
-def usage():
+def usage()
+    print("Usage. assignment1.py <arg1> <arg2>")
+    sys.exit(1)
     "Print a usage message to the user"
     ...
 
@@ -101,16 +102,6 @@ def valid_date(date: str) -> bool:
     else:
         if month < 1 or month > 12:
             return False
-        else:
-            if day < 1 or day > mon_max(month, year):
-                return False
-            else:
-                return True
-# in this definition, i used the list comprehension to take each element in the list from date and split it using -. I was able to make use of the try and except to implent the use of value error based on whether the date is valid or not.
-
-# First i am checking that the year is over the year of 1500, as the after() hasthat requirement, returning false if not.
-
-# It then checks the month if is greater than 1 and less than 12.
 
 # I then made an else   statement to confirm whether the day is greater than one and less then the mon_max which is defined above and will parse the data and confirm whether or not the month and the year are within the max. If so, it will return as true.
 
@@ -136,6 +127,28 @@ def day_count(start_date: str, stop_date: str) -> int:
     return weekends
     "Loops through range of dates, and returns number of weekend days"
     ...
+# For day_count, i start by making weekends = 0 and will be keeping track of the weekends. I then made daycount_date as start date to be iterated through each date. As long as it is less then or equal to teh date, the while loop will countinue.
+
+# I used day of the week function to showthe list of days made above and be put into a if statement. with name_day being day of week, i made it == to either sat or sun and it will incrase the counter. Based on however many weeknds it will use after().
 
 if __name__ == "__main__":
+    
+    if len(sys.argv) != 2:
+        usage('Usage. assignment1.py <arg1> <arg2>')
+
+    start_date, end_date = sys.argv[1], sys.argv[2]
+
+
+    if not valid_date(start_date) or not valid_date(end_date):
+        print("start_date or end_date or both given dates are invalid.")
+        usage()
+
+    if start_date > end_date:
+        print("Start date appears to earlier then the end date! Swapping..")
+        start_date, end_date = end_date, start_date
+
+    weekends = day_count(start_date, end_date)
+
+    print("The number of weekend days between " + start_date + " and " + end_date + " is: " + str(weekends))
     ...
+
